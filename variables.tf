@@ -1,5 +1,5 @@
-variable "instance_name" {
-  description = "Name tag for the EC2 instance"
-  type        = string
-  default     = "App Server"
+variable "server_port" {
+  description = "HTTP port for app server"
+  type        = number
+  default     = 80
 }

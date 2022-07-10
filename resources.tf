@@ -14,11 +14,11 @@ resource "aws_instance" "app_server" {
   user_data = <<-EOF
   #!/bin/bash
   echo "Hello World" > index.html
-  nohup busybox httpd -f -p 8080 &
+  nohup busybox httpd -f -p "${var.server_port}" &
   EOF
 
   tags = {
-    Name = var.instance_name
+    Name = "App server"
   }
 }
 
@@ -37,9 +37,9 @@ resource "aws_security_group" "instanceSG" {
   }
   ingress {
     cidr_blocks      = ["0.0.0.0/0"]
-    description      = "Allow port 80"
-    from_port        = 80
-    to_port          = 80
+    description      = "Allow port ${var.server_port}"
+    from_port        = var.server_port
+    to_port          = var.server_port
     ipv6_cidr_blocks = ["::/0"]
     protocol         = "tcp"
     # prefix_list_ids  = []
@@ -60,6 +60,6 @@ resource "aws_security_group" "instanceSG" {
   }
 
   tags = {
-    "Name" = "allow port 8080 and 80"
+    "Name" = "allow port 8080 and ${var.server_port}"
   }
 }
