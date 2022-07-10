@@ -1,0 +1,54 @@
+name: v1.0
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy-asg:
+    name: Deploy ASG
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: setup TF
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{secrets.TF_API_TOKEN}}
+      - name: format TF
+        id: tf-format
+        run: terraform fmt -check
+      - name: init TF
+        id: tf-init
+        run: terraform init
+      - name: plan TF
+        id: tf-plan
+        run: terraform plan -input=false
+        continue-on-error: false
+      - name: apply TF
+        id: tf-apply
+        run: terraform apply -auto-approve -input=false
+
+  destroy-asg:
+    name: Destroy ASG
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{secrets.TF_API_TOKEN}}
+      - name: Terraform Destroy
+        id: tf-destroy
+        run: terraform destroy -auto-approve -input=false

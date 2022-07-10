@@ -31,9 +31,9 @@ resource "aws_security_group" "instanceSG" {
     to_port          = 8080
     ipv6_cidr_blocks = ["::/0"]
     protocol         = "tcp"
-    # prefix_list_ids = [ "*" ]
-    # security_groups = [ "*" ]
-    # self = false
+    # prefix_list_ids  = []
+    # security_groups  = []
+    # self             = false
   }
   ingress {
     cidr_blocks      = ["0.0.0.0/0"]
@@ -42,9 +42,9 @@ resource "aws_security_group" "instanceSG" {
     to_port          = 80
     ipv6_cidr_blocks = ["::/0"]
     protocol         = "tcp"
-    # prefix_list_ids = [ "*" ]
-    # security_groups = [ "*" ]
-    # self = false
+    # prefix_list_ids  = []
+    # security_groups  = []
+    # self             = false
   }
   egress {
     cidr_blocks      = ["0.0.0.0/0"]
@@ -53,8 +53,8 @@ resource "aws_security_group" "instanceSG" {
     ipv6_cidr_blocks = ["::/0"]
     to_port          = 0
     protocol         = "-1"
-    # prefix_list_ids = [ "*" ]
-    # security_groups = [ "*" ]
+    # prefix_list_ids = []
+    # security_groups = []
     # self = false
 
   }
