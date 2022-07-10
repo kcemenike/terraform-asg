@@ -50,6 +50,9 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{secrets.TF_API_TOKEN}}
+      - name: init TF
+        id: tf-init
+        run: terraform init
       - name: Terraform Destroy
         id: tf-destroy
         run: terraform destroy -auto-approve -input=false
