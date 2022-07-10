@@ -38,6 +38,7 @@ jobs:
 
   destroy-asg:
     name: Destroy ASG
+    needs: deploy-asg
     runs-on: ubuntu-latest
     defaults:
       run:
