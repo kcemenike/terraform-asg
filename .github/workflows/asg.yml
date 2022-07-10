@@ -27,10 +27,7 @@ jobs:
         run: terraform fmt -check
       - name: init TF
         id: tf-init
-        run: |
-          terraform init
-          cd resources
-          terraform init
+        run: terraform init
       - name: plan TF
         id: tf-plan
         run: terraform plan -input=false
@@ -55,10 +52,7 @@ jobs:
           cli_config_credentials_token: ${{secrets.TF_API_TOKEN}}
       - name: init TF
         id: tf-init
-        run: |
-          terraform init
-          cd resources
-          terraform init
+        run: terraform init
       - name: Terraform Destroy
         id: tf-destroy
         run: terraform destroy -auto-approve -input=false
